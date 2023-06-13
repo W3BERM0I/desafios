@@ -27,7 +27,7 @@ export default {
     <v-toolbar color="light-blue-accent-3">
       <v-toolbar-title>Desafios</v-toolbar-title>
 
-      <template v-slot:extension>
+        <template v-slot:extension>
         <v-tabs
           v-model="tab"
           align-tabs="center"

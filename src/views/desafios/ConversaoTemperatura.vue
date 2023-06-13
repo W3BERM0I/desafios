@@ -42,18 +42,25 @@
         style="width: 100%"
         v-for="(registro, index) in historicoConvercoes"
         :key="index"
+        class="d-flex mb-4 pa-6 rounded-xl"
       >
+      <div style="width: 100%;">
         <p class="tituloRegistro">{{ registro.titulo }}</p>
         <p class="textoRegistro">{{ registro.texto }}</p>
+      </div>
+      <v-icon aria-hidden="false" size="40" class="justify-self-end align-self-center ma-7"  @click="removeItemHistorico(index)">mdi-minus</v-icon>
       </v-card>
     </v-row>
   </v-container>
 </template>
 
 <script>
+import {mdiMinus} from '@mdi/js'
+
 export default {
   data() {
     return {
+
       valor: null,
       valorConvertido: 0,
       tipos: ["Celcius para fahrenheit", "Fahrenheit para celcius"],
@@ -100,6 +107,9 @@ export default {
       });
       return;
     },
+    removeItemHistorico(index) {
+      this.historicoConvercoes.splice(index, 1);
+    }
   },
   created() {
     this.selectTipo = this.tipos[0];
