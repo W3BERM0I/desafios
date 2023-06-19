@@ -7,7 +7,6 @@ module.exports = {
   Plugins: ["vue"],
   rules: {
     'vue/multi-word-component-names': 'off',
-    semi: ["error", "always"],
     quotes: ["error", "single"],
     indent: ["error", 4],
     "comma-spacing": ["error", { before: false, after: true }],

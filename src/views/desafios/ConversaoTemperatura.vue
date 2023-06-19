@@ -1,81 +1,53 @@
 <template>
   <v-container>
     <v-row class="align-center justify-center">
-      <h1 class="tituloConversor">Conversor de temperatura</h1>
+      <h1 class="titulo">Conversor de temperatura</h1>
     </v-row>
-    <v-row>
-      <v-col>
-        <v-select
-          label="Selecione tipo de conversao"
-          :items="[...tipos]"
-          v-model="selectTipo"
-        ></v-select>
-      </v-col>
-      <v-col>
-        <v-text-field
-          label="informe o valor"
-          :rules="rulesInputTemp"
-          hide-details="auto"
-          v-model="valor"
-        ></v-text-field>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col>
-        <v-btn
-          color="light-blue-accent-3"
-          size="auto"
-          @click="convert"
-          class="mt-4 pa-2"
-          block
-          >Converter</v-btn
-        >
-      </v-col>
-    </v-row>
+    <v-form @submit.prevent="convert" v-model="formularioValido">
+      <v-row>
+        <v-col>
+          <v-select
+            label="Selecione tipo de conversao"
+            :items="[...tipos]"
+            v-model="selectTipo"
+          ></v-select>
+        </v-col>
+        <v-col>
+          <v-text-field
+            label="informe o valor"
+            :rules="rules"
+            hide-details="auto"
+            v-model="valor"
+          ></v-text-field>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col>
+          <BtnSubmit :disabled="formularioValido" label="Converter" />
+        </v-col>
+      </v-row>
+    </v-form>
   </v-container>
-  <v-container class="mt-8" v-if="!historicoConvercoes.length == 0">
-    <v-row class="align-center justify-center">
-      <h1 class="tituloConversor">Historico de conversões</h1>
-    </v-row>
-    <v-row class="align-center justify-center">
-      <v-card
-        style="width: 100%"
-        v-for="(registro, index) in historicoConvercoes"
-        :key="index"
-        class="d-flex mb-4 pa-6 rounded-xl"
-      >
-      <div style="width: 100%;">
-        <p class="tituloRegistro">{{ registro.titulo }}</p>
-        <p class="textoRegistro">{{ registro.texto }}</p>
-      </div>
-      <v-icon aria-hidden="false" size="40" class="justify-self-end align-self-center ma-7"  @click="removeItemHistorico(index)">mdi-minus</v-icon>
-      </v-card>
-    </v-row>
-  </v-container>
+  <historico
+    titulo="Historico de conversões"
+    :lista="this.historicoConvercoes"
+  />
 </template>
 
 <script>
-import {mdiMinus} from '@mdi/js'
-
+import Historico from "@/components/Historico.vue";
+import BtnSubmit from "@/components/bottons/BtnSubmit.vue";
 export default {
+  props: ["rules"],
+  components: { Historico, BtnSubmit },
   data() {
     return {
-
       valor: null,
       valorConvertido: 0,
       tipos: ["Celcius para fahrenheit", "Fahrenheit para celcius"],
       selectTipo: null,
-      rulesInputTemp: [
-        (value) => !!value || "Required.",
-        (value) => {
-          const pattern = /^\d+(\.\d+)?$/;
-          return (
-            pattern.test(value) ||
-            "Apenas numeros e use o ponto para numeros com casa flutuante"
-          );
-        },
-      ],
       historicoConvercoes: [],
+      formularioValido: false,
     };
   },
   methods: {
@@ -109,7 +81,7 @@ export default {
     },
     removeItemHistorico(index) {
       this.historicoConvercoes.splice(index, 1);
-    }
+    },
   },
   created() {
     this.selectTipo = this.tipos[0];
@@ -118,19 +90,4 @@ export default {
 </script>
 
 <style scoped>
-.tituloConversor {
-  font-weight: bold;
-  font-size: 3rem;
-  color: #706767;
-}
-
-.tituloRegistro {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #706767;
-}
-
-.textoRegistro {
-  font-size: 2rem;
-}
 </style>
