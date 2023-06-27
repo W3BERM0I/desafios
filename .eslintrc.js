@@ -11,5 +11,6 @@ module.exports = {
     indent: ["error", 4],
     "comma-spacing": ["error", { before: false, after: true }],
     "vue/no-multi-spaces": 0,
+    'vue/comment-directive': 'off'
   },
 };

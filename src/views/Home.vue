@@ -7,6 +7,8 @@ import InversaoString from "./desafios/InversaoString.vue";
 import Palindromo from "./desafios/Palindromo.vue";
 import Imc from "./desafios/Imc.vue";
 import MaiorRepElemento from "./desafios/MaiorRepElemento.vue";
+import Counter from "@/components/Counter.vue";
+import ElementosDuplicados from "./desafios/ElementosDuplicados.vue";
 
 export default {
   components: {
@@ -18,6 +20,13 @@ export default {
     InversaoString,
     Palindromo,
     MaiorRepElemento,
+    Counter,
+    ElementosDuplicados,
+  },
+  computed: {
+    counter() {
+      return this.$store.state.counter;
+    },
   },
   data() {
     return {
@@ -55,6 +64,10 @@ export default {
           value: "Repetição de elementos",
           componentName: "MaiorRepElemento",
         },
+        {
+          value: "Elementos Duplicados",
+          componentName: "ElementosDuplicados",
+        },
       ],
       rulesNumber: [
         (value) => !!value || "Required.",
@@ -72,9 +85,10 @@ export default {
 </script>
 
 <template>
+  <counter />
   <v-card>
     <v-toolbar color="light-blue-accent-3">
-      <v-toolbar-title>Desafios</v-toolbar-title>
+      <v-toolbar-title>Desafios {{ counter }}</v-toolbar-title>
 
       <template v-slot:extension>
         <v-tabs
@@ -104,6 +118,6 @@ export default {
 .titulo {
   font-weight: bold;
   font-size: 3rem;
-  color: #706767;
+  color: var(--cinzaClaro);
 }
 </style>

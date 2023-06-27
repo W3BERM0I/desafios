@@ -51,6 +51,8 @@ export default {
         titulo: "Frase ou palavra:  " + this.frase,
         texto: "Palindromo: " + this.palindromo,
       });
+
+      this.frase = null;
     },
   },
   computed: {

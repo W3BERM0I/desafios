@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row class="align-center justify-center mb-2">
-      <h1 class="titulo">Verica o elemento que mais se repete</h1>
+      <h1 class="titulo">Remove os elementos duplicados</h1>
     </v-row>
     <v-row class="align-center justify-center mb-4">
       <p>use o | (pipe) para separar os elementos</p>
@@ -10,7 +10,7 @@
       <v-row>
         <v-col cols="8">
           <v-text-field
-            label="Informe o array separando em elementos com pipe |"
+            label="Informe o array e use o | (pipe) para separar os elementos"
             hide-details="auto"
             v-model="frase"
             @click.stop

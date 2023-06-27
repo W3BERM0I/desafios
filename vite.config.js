@@ -38,4 +38,8 @@ export default defineConfig({
   server: {
     port: 3000,
   },
+  devServer: {
+    port: 3001,
+    host: '0.0.0.0', // Define o host como '0.0.0.0' para tornar a aplicação acessível na rede
+  }
 })
