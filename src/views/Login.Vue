@@ -42,10 +42,12 @@ export default {
   methods: {
     login() {
       this.$store.dispatch("authenticate", "comun");
-      console.log(this.$store.state.isAuthenticated);
       this.$router.push({ name: "Home" });
       return;
     },
+  },
+  created() {
+    this.$store.dispatch("logout");
   },
 };
 </script>

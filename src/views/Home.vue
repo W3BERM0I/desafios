@@ -81,6 +81,12 @@ export default {
       ],
     };
   },
+  methods: {
+    logout() {
+      this.$store.dispatch("logout");
+      this.$router.push({ name: "Login" });
+    },
+  },
 };
 </script>
 
@@ -88,7 +94,10 @@ export default {
   <counter />
   <v-card>
     <v-toolbar color="light-blue-accent-3">
-      <v-toolbar-title>Desafios {{ counter }}</v-toolbar-title>
+      <v-container class="d-flex flex-row">
+        <v-toolbar-title>Desafios {{ counter }}</v-toolbar-title>
+        <p @click.prevent="logout()">logout</p>
+      </v-container>
 
       <template v-slot:extension>
         <v-tabs

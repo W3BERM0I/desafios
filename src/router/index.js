@@ -22,6 +22,9 @@ const routes = [
     path: "/home",
     name: "Home",
     component: () => import(/* webpackChunkName: "home" */ "@/views/Home.vue"),
+    meta: {
+      auth: true
+    }
   },
   {
     path: "/login",
@@ -34,9 +37,10 @@ const routes = [
   },
   {
     path: "/",
+    name: "Base",
     redirect: () => {
-      if(store.state.isAuthenticated) return { name: "Home" }
-      if(!store.state.isAuthenticated) return { name: "Login" }
+      if (store.state.isAuthenticated) return { name: "Home" }
+      if (!store.state.isAuthenticated) return { name: "Login" }
     }
   }
 ];
@@ -52,17 +56,22 @@ const whitelist = [
 ];
 
 router.beforeEach((to, from, next) => {
-  // if(!whitelist.includes(to.name) && store.state.isAuthenticated) {
-  //   next({ name: "Home" })
-  //   return
-  // }
+  if (!whitelist.includes(to.name) && !store.state.isAuthenticated) {
+    next({ name: "Login" })
+    return
+  }
 
-  // if(!whitelist.includes(to.name) && !store.state.isAuthenticated) {
-  //   next({ name: "Login" })
+  if (to.meta.auth) {
+    store.state.isAuthenticated ? next() : next({ name: "Login" })
+  } else {
+    next();
+  }
+
+  // if (to.name == "Login" && store.state.isAuthenticated) {
+  //   next({ name: 'Home' })
   //   return
   // }
   next()
 })
 
-router.afterEach
 export default router;
